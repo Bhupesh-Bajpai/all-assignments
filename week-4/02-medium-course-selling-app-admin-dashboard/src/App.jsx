@@ -5,6 +5,7 @@ import CreateCourse from './components/CreateCourse';
 import Register from './components/Register';
 import ShowCourses from './components/ShowCourses';
 import AppBar from './components/AppBar';
+import Courses from './components/Courses';
 
 // This file shows how you can do routing in React.
 // Try going to /login, /register, /about, /courses on the website and see how the html changes
@@ -13,9 +14,9 @@ import AppBar from './components/AppBar';
 function App() {
     return (
         <div style={{
-            width:"100vw",
-            height:"100vh",
-            backgroundColor:"#e5e0e0"
+            backgroundColor:"#e5e0e0",
+            minWidth:"100vw",
+            minHeight:"100vh"
         }}>
             
               <Router>
@@ -25,8 +26,8 @@ function App() {
                 <Route path="/" element={<Landing />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/about" element={<CreateCourse />} />
-                <Route path="/courses" element={<ShowCourses />} />
+                <Route path="/CreateCourse" element={<CreateCourse />} />
+                <Route path="/courses" element={<Courses />} />
             </Routes>
         </Router>
 

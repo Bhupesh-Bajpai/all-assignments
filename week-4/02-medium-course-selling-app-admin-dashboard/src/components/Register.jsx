@@ -2,12 +2,14 @@ import React from "react";
 import TextField from '@mui/material/TextField';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
+import { Alert } from "@mui/material";
 import { margin } from "@mui/system";
 
 /// File is incomplete. You need to add input boxes to take input for users to register.
 function Register() {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [registrationFlag,setRegistration] = React.useState("");
 
 
 
@@ -19,7 +21,36 @@ function Register() {
     }
 
 
+    const registerAdmin = () =>{
+        fetch("http://localhost:3000/admin/signup",{
+            method:"POST",
+            body:JSON.stringify({
+                username:email,
+                password:password
+            }),
+            headers:{
+                "Content-Type": "application/json"
+            }
+        }).then((res=>{
+            res.json().then(data=>{
+                console.log(data);
+                localStorage.setItem("token",data.token);
+                setRegistration("true");
+                setEmail("");
+                setPassword("")
+            })
+        }))
+    }
+
     return <div>
+           {registrationFlag==="true" &&(
+             <Alert style={{
+                zIndex :"10",
+                width:"100%"
+             }} variant="filled" severity="success">
+                Sign up Succesfull.
+             </Alert>
+        )}
         <div style={{
             display:"flex",
             flexDirection:"column",
@@ -39,6 +70,7 @@ function Register() {
             alignItems:"center",
         }}>
         <h3>Welcome our course site.Please register From here</h3>
+     
         <div style={{
             width:"300px",
             height:"50px",
@@ -49,7 +81,7 @@ function Register() {
              id="outlined-basic" 
              label="Email" 
              variant="outlined" 
-             onClick={handleEmailChange}
+             onChange={handleEmailChange}
              />
 
         </div>
@@ -63,7 +95,7 @@ function Register() {
         id="outlined-basic" 
         label="password" 
         variant="outlined" 
-        onClick={handlePasswordChange}
+        onChange={handlePasswordChange}
         />
        
 
@@ -73,14 +105,15 @@ function Register() {
             margin:"10px"
         }}>
     
-        <Button variant="contained" onClick={registerAdmin}>Register</Button> 
+        <Button fullWidth={true} variant="contained" onClick={registerAdmin}>SIGN UP</Button> 
 
         </div>
        
         
        
         </Card>
-
+       
+       
       
  
         </div>
