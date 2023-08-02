@@ -2,15 +2,8 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const app = express();
-<<<<<<< HEAD
 
 app.use(express.json());
-=======
-const cors = require("cors")
-
-app.use(express.json());
-app.use(cors())
->>>>>>> a245f9a (new update)
 
 const SECRET = 'SECr3t';  // This should be in an environment variable in a real application
 
@@ -57,11 +50,7 @@ const authenticateJwt = (req, res, next) => {
 
 // Connect to MongoDB
 // DONT MISUSE THIS THANKYOU!!
-<<<<<<< HEAD
 mongoose.connect('mongodb+srv://kirattechnologies:iRbi4XRDdM7JMMkl@cluster0.e95bnsi.mongodb.net/courses', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
-=======
-mongoose.connect('mongodb+srv://bajpaibhupesh25:Bhupesh2502@cluster0.rrzvaih.mongodb.net/courses', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
->>>>>>> a245f9a (new update)
 
 app.post('/admin/signup', (req, res) => {
   const { username, password } = req.body;
@@ -80,19 +69,8 @@ app.post('/admin/signup', (req, res) => {
   Admin.findOne({ username }).then(callback);
 });
 
-<<<<<<< HEAD
 app.post('/admin/login', async (req, res) => {
   const { username, password } = req.headers;
-=======
-app.get('/admin/me',authenticateJwt,(req,res)=>{
-   res.json({
-    username : req.user.username
-   })
-})
-
-app.post('/admin/login', async (req, res) => {
-  const { username, password } = req.body;
->>>>>>> a245f9a (new update)
   const admin = await Admin.findOne({ username, password });
   if (admin) {
     const token = jwt.sign({ username, role: 'admin' }, SECRET, { expiresIn: '1h' });
